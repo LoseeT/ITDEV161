@@ -1,10 +1,27 @@
 import React from 'react';
 import './App.css';
 import axios from 'axios';
+import { Routes, Route, Link } from 'react-router-dom';
 
  class App extends React.Component {
-  state = {
-    data: null
+  render() {
+    <div className='App'>
+      <header className='App-header'>
+        <h1>GoodThings</h1>
+        <ul>
+          <li><Link to ="/">Home</Link></li>
+          <li><Link to ="/register">Register</Link></li>
+          <li><Link to ="/login">Login</Link></li>
+        </ul>
+      </header>
+      <main>
+        <Route>
+          <Route path="/" />
+          <Route path="/register" />
+          <Route path="/login" />
+        </Route>
+      </main>
+    </div>
   }
 
   componentDidMount(){
