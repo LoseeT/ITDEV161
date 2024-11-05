@@ -106,3 +106,29 @@ app.get('/api/auth', auth, async (req, res) => {
     res.status(500).send('Unknown server error');
   }
 });
+
+app.post(
+  '/api/login',
+  [
+    check('email', 'Please enter a valid email').isEmail(),
+    check('password', 'A password is required').exists()
+  ],
+ async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  } else {
+    const { email, password } = req.body;
+    try {
+      let user = await User.findOne({ email: email });
+      if (!user) {
+        return res
+        .status(400)
+        .json({ errors: [{ msg: 'Invalid email or password' }] });
+      }
+
+      const match = await bcrypt.compare(password, user.password);
+    }
+  }
+ }
+);
